@@ -11,7 +11,30 @@ class NeGiysem():
     coordinates=""
     
     def __init__(self):
-        pass
+        self.menu()
+
+    def menu(self):
+        print("""
+        1- With Instant Location
+        2- With City Name
+        """)
+
+        option = input("Choose one of them : ")
+
+        if option.isnumeric():
+            option = int(option)
+
+            if option == 1:
+                coord = self.get_coordinates(self.coordinates_api_key)
+                self.get_weather_forecast(coord)
+
+            else:
+                name = self.get_city_name()
+                self.get_weather_forecast(name)
+
+        else:
+            print("Wrong Entry")
+            self.menu()
        
     #get coordinates
     def get_coordinates(self,coordinates_api_key):
@@ -20,7 +43,7 @@ class NeGiysem():
         if coordinates:
            return coordinates
         else:
-           get_city_name()
+           self.get_city_name()
     
     
     #ask city name
@@ -51,6 +74,7 @@ coordinates = app.get_coordinates(app.coordinates_api_key)
 
 #get weather forecast
 data=app.get_weather_forecast(coordinates)
+print(data)
 suggestion = Suggestions("Cloudy","-5")
 #get weather main
 suggestion.create()
